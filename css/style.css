@@ -1,0 +1,239 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+/* Selector universal, se aplica a todos los elementos */
+* {
+    margin: 0;
+    padding: 0;
+    /* El width y height de un elemento incluye tanto el tamaño del borde como del padding */
+    box-sizing: border-box;
+}
+
+/* Todo lo que se incluye en el body se hereda por el resto de elementos */
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #777;
+    padding: 30px; /* El padding no se hereda */
+}
+
+.header {
+    height: 95vh; /* 95% del view-port */
+    background-image: linear-gradient(
+        to right bottom, 
+        rgba(126, 213, 111, 0.8), 
+        rgba(40, 180, 133, 0.8)), 
+    url( ../img/hero.jpg );
+    background-size: cover; /* Cubre todo el elemento en el que se encuentra */
+    background-position: top; /* No se recortará la imagen por la parte superior al redimensionar */
+    /* Recorta la imagen, crea un polígono donde todo lo que esté fuera no se verá */
+    clip-path: polygon( 0 0, 100% 0, 100% 75vh, 0 100% );
+    position: relative;
+}
+
+.logo-box {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+
+.logo {
+    height: 35px;
+}
+
+.text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    /* Se mueve -50% del tamaño del elemento, tanto en altura como en anchura */
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.heading-primary {
+    color: #fff;
+    text-transform: uppercase;
+    /* Arregla un bug en las animaciones que hace que se muevan un poco hacia arriba */
+    backface-visibility: hidden;
+    margin-bottom: 60px;
+}
+
+.heading-primary-main {
+    /* Al ser un span, es un elemento 'inline'. Lo ponemos 'block' 
+    para que ocupe todo el ancho, y se comporte como un bloque */
+    display: block;
+    /*font-size: 60px;*/
+    /* Los rem hacen que nuestra fuente sea x veces más grande que la fuente definida de forma global */
+    font-size: 3.75rem;
+    font-weight: 400;
+    /*letter-spacing: 35px;*/
+    letter-spacing: 2.18rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /* La animación irá más lenta al final */
+    animation-timing-function: ease-out;
+}
+
+.heading-primary-sub {
+    display: block;
+    /*font-size: 20px;*/
+    font-size: 1.25rem;
+    font-weight: 700;
+    /*letter-spacing: 17.4px;*/
+    letter-spacing: 1.08rem;
+    animation: moveInRight 1s ease-out;
+}
+
+/**
+* Animación que hace que el texto se mueva desde la izquierda
+* siendo invisible al principio
+**/
+@keyframes moveInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+
+    80% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/**
+* Animación que hace que el texto se mueva desde la derecha
+* siendo invisible al principio
+**/
+@keyframes moveInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+
+    80% {
+        transform: translateX(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/**
+* Aplicamos media queries para que el tamaño del texto se adapte al tamaño de la pantalla
+**/
+@media only screen and (max-width: 900px){
+    .heading-primary-main{
+      font-size: 2.3rem;
+      letter-spacing: 1.4rem;
+    }
+    .heading-primary-sub {
+        font-size: 1.2rem;
+        letter-spacing: .5rem;
+    }
+  }
+   
+  @media only screen and (max-width: 600px){
+    .heading-primary-main{
+        font-size: 1.6rem;
+        letter-spacing: 1rem;
+      }
+      .heading-primary-sub {
+          font-size: .8rem;
+          letter-spacing: .5rem;
+      }
+  }
+
+  .btn:link,
+  .btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 40px;
+    /* Por defecto es inline, por lo que ocupa espacio de otros elementos
+        inline-block hace que tenga su propio espacio en la pagina*/
+    display: inline-block;
+    border-radius: 100px;
+    /* Habilita todas las propiedades de animación (transform, etc) y les dice cuanto deben durar 
+        Esto hace que el transform del hover y el active duren lo que se indica aquí*/
+    transition: all .2s;
+    position: relative;
+  }
+
+  .btn:hover {
+      transform: translateY(-3px);
+      /* La sombra va 10px hacia abajo, tiene 20px de blur (nublado)*/
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  }
+
+  /* Cuando hacemos click */
+  .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  }
+
+  .btn-white {
+      background-color: #fff;
+      color: #777;
+  }
+
+  /* Permite crear un elemento después del elemento actual,
+     pero se trata como si fuera un hijo.
+     Creamos un elemento que sea igual que el botón actual,
+     pero lo ponemos detrás */
+  .btn::after {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+      border-radius: 100px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      /* Habilitamos las transiciones para este elemento */
+      transition: all .4s;
+  }
+
+  .btn-white::after {
+    background-color: #fff;
+  }
+
+  /* Cuando hagamos hover sobre el botón, queremos que se "estilice"
+     el elemento 'after'*/
+  .btn:hover::after {
+      /* Lo hacemos más grande y lo hacemos invisible */
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+  }
+
+  .btn-animated {
+    animation: moveInBottom .5s ease-out;
+    animation-delay: .75s;
+    /* Indica que los estilos en el 0% de la animación se deben aplicar antes de aplicar el delay */
+    animation-fill-mode: backwards;
+  }
