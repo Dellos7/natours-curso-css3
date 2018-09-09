@@ -8,21 +8,41 @@ Dark green: #28b485
 */
 
 /* Selector universal, se aplica a todos los elementos */
-* {
+*,
+*::after,
+*::before {
     margin: 0;
     padding: 0;
-    /* El width y height de un elemento incluye tanto el tamaño del borde como del padding */
-    box-sizing: border-box;
+    /* Esta propiedad no se hereda, por lo que queremos que para todos los elementos
+        se herede. Se heredará por tanto (en este caso) del elemento 'body', donde sí
+        hemos especificado un valor */
+    box-sizing: inherit;
+}
+
+/* Aquí se definen los valores del 'root', es decir que los 'rem'
+    se aplicarán en base al valor del font-size del elemento 'html' */
+html {
+    
+    /*font-size: 10px;*/
+    /* Queremos utilizar 10px 'por defecto' como font-size porque estamos utilizando
+    los 'rem' en toda la página. Pero a la vez no queremos sobreescribir el font-size
+    si el usuario lo cambia en las preferencias del navegador. Es por ello que dividimos
+    10/16 = 0.625, y ese es el porcentaje que utilizaremos del font-size definido por el usuario
+    como el font-size base para hacer los cálculos con los 'rem' */
+    font-size: 62.5%;
 }
 
 /* Todo lo que se incluye en el body se hereda por el resto de elementos */
 body {
     font-family: "Lato", sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    /*font-size: 16px;*/
     line-height: 1.7;
     color: #777;
-    padding: 30px; /* El padding no se hereda */
+    padding: 3rem; /* El padding no se hereda */
+    /* El width y height de un elemento incluye tanto el tamaño del borde 
+    como del padding */
+    box-sizing: border-box;
 }
 
 .header {
@@ -39,17 +59,26 @@ body {
     position: relative;
 }
 
-.logo-box {
+.header__logo-box {
     position: absolute;
-    top: 40px;
-    left: 40px;
+    top: 4rem;
+    left: 4rem;
+    animation: moveInDeep 1s;
+    animation-delay: 0.8s;
+    animation-fill-mode: backwards;
 }
 
-.logo {
-    height: 35px;
+.header__logo-box--anim {
+    animation: moveInDeepAfter 1.5s;
+    animation-delay: 0.8s;
+    animation-fill-mode: backwards;
 }
 
-.text-box {
+.header__logo {
+    height: 3.5rem;
+}
+
+.header__text-box {
     position: absolute;
     top: 40%;
     left: 50%;
@@ -63,32 +92,27 @@ body {
     text-transform: uppercase;
     /* Arregla un bug en las animaciones que hace que se muevan un poco hacia arriba */
     backface-visibility: hidden;
-    margin-bottom: 60px;
+    margin-bottom: 6rem;
 }
 
-.heading-primary-main {
+.heading-primary--main {
     /* Al ser un span, es un elemento 'inline'. Lo ponemos 'block' 
     para que ocupe todo el ancho, y se comporte como un bloque */
     display: block;
-    /*font-size: 60px;*/
-    /* Los rem hacen que nuestra fuente sea x veces más grande que la fuente definida de forma global */
-    font-size: 3.75rem;
+    font-size: 6rem;
     font-weight: 400;
-    /*letter-spacing: 35px;*/
-    letter-spacing: 2.18rem;
+    letter-spacing: 3.5rem;
     animation-name: moveInLeft;
     animation-duration: 1s;
     /* La animación irá más lenta al final */
     animation-timing-function: ease-out;
 }
 
-.heading-primary-sub {
+.heading-primary--sub {
     display: block;
-    /*font-size: 20px;*/
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-weight: 700;
-    /*letter-spacing: 17.4px;*/
-    letter-spacing: 1.08rem;
+    letter-spacing: 1.75rem;
     animation: moveInRight 1s ease-out;
 }
 
@@ -99,11 +123,11 @@ body {
 @keyframes moveInLeft {
     0% {
         opacity: 0;
-        transform: translateX(-100px);
+        transform: translateX(-10rem);
     }
 
     80% {
-        transform: translateX(10px);
+        transform: translateX(1rem);
     }
 
     100% {
@@ -119,11 +143,11 @@ body {
 @keyframes moveInRight {
     0% {
         opacity: 0;
-        transform: translateX(100px);
+        transform: translateX(10rem);
     }
 
     80% {
-        transform: translateX(-10px);
+        transform: translateX(-1rem);
     }
 
     100% {
@@ -135,7 +159,7 @@ body {
 @keyframes moveInBottom {
     0% {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(3rem);
     }
 
     100% {
@@ -144,59 +168,67 @@ body {
     }
 }
 
-/**
-* Aplicamos media queries para que el tamaño del texto se adapte al tamaño de la pantalla
-**/
-@media only screen and (max-width: 900px){
-    .heading-primary-main{
-      font-size: 2.3rem;
-      letter-spacing: 1.4rem;
+/* Animación para hacer grande la imagen */
+@keyframes moveInDeep {
+    0% {
+        opacity: 0;
+        transform: scale(0);
     }
-    .heading-primary-sub {
-        font-size: 1.2rem;
-        letter-spacing: .5rem;
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
-  }
-   
-  @media only screen and (max-width: 600px){
-    .heading-primary-main{
-        font-size: 1.6rem;
-        letter-spacing: 1rem;
-      }
-      .heading-primary-sub {
-          font-size: .8rem;
-          letter-spacing: .5rem;
-      }
-  }
+}
+
+/* Animación para hacer grande la imagen, y cuando llegue a su tamaño normal
+    incrementarlo y hacer que desaparezca */
+@keyframes moveInDeepAfter {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
 
   .btn:link,
   .btn:visited {
     text-transform: uppercase;
     text-decoration: none;
-    padding: 15px 40px;
+    padding: 1.5rem 4rem;
     /* Por defecto es inline, por lo que ocupa espacio de otros elementos
         inline-block hace que tenga su propio espacio en la pagina*/
     display: inline-block;
-    border-radius: 100px;
+    border-radius: 10rem;
     /* Habilita todas las propiedades de animación (transform, etc) y les dice cuanto deben durar 
         Esto hace que el transform del hover y el active duren lo que se indica aquí*/
     transition: all .2s;
     position: relative;
+    font-size: 1.6rem;
   }
 
   .btn:hover {
       transform: translateY(-3px);
       /* La sombra va 10px hacia abajo, tiene 20px de blur (nublado)*/
-      box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
   }
 
   /* Cuando hacemos click */
   .btn:active {
     transform: translateY(-1px);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
   }
 
-  .btn-white {
+  .btn--white {
       background-color: #fff;
       color: #777;
   }
@@ -206,11 +238,11 @@ body {
      Creamos un elemento que sea igual que el botón actual,
      pero lo ponemos detrás */
   .btn::after {
+      border-radius: 10rem;
       content: "";
       display: inline-block;
       height: 100%;
       width: 100%;
-      border-radius: 100px;
       position: absolute;
       top: 0;
       left: 0;
@@ -219,7 +251,7 @@ body {
       transition: all .4s;
   }
 
-  .btn-white::after {
+  .btn--white::after {
     background-color: #fff;
   }
 
@@ -231,7 +263,7 @@ body {
       opacity: 0;
   }
 
-  .btn-animated {
+  .btn--animated {
     animation: moveInBottom .5s ease-out;
     animation-delay: .75s;
     /* Indica que los estilos en el 0% de la animación se deben aplicar antes de aplicar el delay */
