@@ -1,0 +1,31 @@
+/* Selector universal, se aplica a todos los elementos */
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    /* Esta propiedad no se hereda, por lo que queremos que para todos los elementos
+        se herede. Se heredará por tanto (en este caso) del elemento 'body', donde sí
+        hemos especificado un valor */
+    box-sizing: inherit;
+}
+
+/* Aquí se definen los valores del 'root', es decir que los 'rem'
+    se aplicarán en base al valor del font-size del elemento 'html' */
+html {
+    
+    /*font-size: 10px;*/
+    /* Queremos utilizar 10px 'por defecto' como font-size porque estamos utilizando
+    los 'rem' en toda la página. Pero a la vez no queremos sobreescribir el font-size
+    si el usuario lo cambia en las preferencias del navegador. Es por ello que dividimos
+    10/16 = 0.625, y ese es el porcentaje que utilizaremos del font-size definido por el usuario
+    como el font-size base para hacer los cálculos con los 'rem' */
+    font-size: 62.5%;
+}
+
+/* Todo lo que se incluye en el body se hereda por el resto de elementos (los elementos que se pueden heredar) */
+body {
+    /* El width y height de un elemento incluye tanto el tamaño del borde 
+    como del padding */
+    box-sizing: border-box;
+}

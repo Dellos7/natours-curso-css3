@@ -4,11 +4,16 @@
   "description": "Landing page for natours",
   "main": "index.js",
   "scripts": {
-    "compile:sass": "node-sass sass/main.scss css/style.css -w"
+    "compile:sass": "node-sass sass/main.scss css/style.css -w",
+    "live-server": "live-server",
+    "start": "concurrently 'npm run compile:sass' 'npm run live-server'"
   },
   "author": "David López Castellote <david.lopez.castellote@gmail.com> (https://github.com/Dellos7)",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^4.0.1",
+    "live-server": "^1.2.0",
     "node-sass": "^4.9.3"
-  }
+  },
+  "dependencies": {}
 }

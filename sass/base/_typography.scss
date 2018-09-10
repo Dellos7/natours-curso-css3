@@ -1,0 +1,38 @@
+/* Todo lo que se incluye en el body se hereda por el resto de elementos */
+body {
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    /*font-size: 16px;*/
+    line-height: 1.7;
+    color: $color-gray-dark;
+    padding: 3rem; /* El padding no se hereda */
+}
+
+.heading-primary {
+    color: $color-white;
+    text-transform: uppercase;
+    /* Arregla un bug en las animaciones que hace que se muevan un poco hacia arriba */
+    backface-visibility: hidden;
+    margin-bottom: 6rem;
+
+    &--main {
+        /* Al ser un span, es un elemento 'inline'. Lo ponemos 'block' 
+        para que ocupe todo el ancho, y se comporte como un bloque */
+        display: block;
+        font-size: 6rem;
+        font-weight: 400;
+        letter-spacing: 3.5rem;
+        animation-name: moveInLeft;
+        animation-duration: 1s;
+        /* La animación irá más lenta al final */
+        animation-timing-function: ease-out;
+    }
+    
+    &--sub {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 1.75rem;
+        animation: moveInRight 1s ease-out;
+    }
+}

@@ -1,0 +1,30 @@
+/*
+Creamos nuestro propio grid con filas y columnas utilizando floats
+*/
+.row {
+    //max-width: 1140px;
+    //Se suele utilizar como estándar para una fila 1140px, pero hay que convertirlos en rem
+    max-width: $grid-width;
+    background-color: #eee;
+    //Funciona con elementos tipo bloque dentro de elementos tipo bloque (display: block)
+    margin: 0 auto;
+
+    //Poner el margen abajo en todas las filas menos la última
+    &:not(:last-child) {
+        margin-bottom: $gutter-vertical;
+    }
+
+    @include clearfix;
+
+    .col-1-of-2 {
+        //El tamaño total del bloque donde se encuentra menos el margen entre columnas dividido entre 2
+        width: calc((100% - #{$gutter-horizontal}) / 2);
+        background-color: orangered;
+        float: left;
+
+        //Aplicamos el margen a la derecha a todas menos a la última
+        &:not(:last-child) {
+            margin-right: $gutter-horizontal;
+        }
+    }
+}

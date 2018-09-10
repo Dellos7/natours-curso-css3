@@ -21,80 +21,11 @@ html {
     como el font-size base para hacer los cálculos con los 'rem' */
   font-size: 62.5%; }
 
-/* Todo lo que se incluye en el body se hereda por el resto de elementos */
+/* Todo lo que se incluye en el body se hereda por el resto de elementos (los elementos que se pueden heredar) */
 body {
-  font-family: "Lato", sans-serif;
-  font-weight: 400;
-  /*font-size: 16px;*/
-  line-height: 1.7;
-  color: #777;
-  padding: 3rem;
-  /* El padding no se hereda */
   /* El width y height de un elemento incluye tanto el tamaño del borde 
     como del padding */
   box-sizing: border-box; }
-
-.header {
-  height: 95vh;
-  /* 95% del view-port */
-  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero.jpg);
-  background-size: cover;
-  /* Cubre todo el elemento en el que se encuentra */
-  background-position: top;
-  /* No se recortará la imagen por la parte superior al redimensionar */
-  /* Recorta la imagen, crea un polígono donde todo lo que esté fuera no se verá */
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
-  position: relative; }
-
-.header__logo-box {
-  position: absolute;
-  top: 4rem;
-  left: 4rem;
-  animation: moveInDeep 1s;
-  animation-delay: 0.8s;
-  animation-fill-mode: backwards; }
-
-.header__logo-box--anim {
-  animation: moveInDeepAfter 1.5s;
-  animation-delay: 0.8s;
-  animation-fill-mode: backwards; }
-
-.header__logo {
-  height: 3.5rem; }
-
-.header__text-box {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  /* Se mueve -50% del tamaño del elemento, tanto en altura como en anchura */
-  transform: translate(-50%, -50%);
-  text-align: center; }
-
-.heading-primary {
-  color: #fff;
-  text-transform: uppercase;
-  /* Arregla un bug en las animaciones que hace que se muevan un poco hacia arriba */
-  backface-visibility: hidden;
-  margin-bottom: 6rem; }
-
-.heading-primary--main {
-  /* Al ser un span, es un elemento 'inline'. Lo ponemos 'block' 
-    para que ocupe todo el ancho, y se comporte como un bloque */
-  display: block;
-  font-size: 6rem;
-  font-weight: 400;
-  letter-spacing: 3.5rem;
-  animation-name: moveInLeft;
-  animation-duration: 1s;
-  /* La animación irá más lenta al final */
-  animation-timing-function: ease-out; }
-
-.heading-primary--sub {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 1.75rem;
-  animation: moveInRight 1s ease-out; }
 
 /**
 * Animación que hace que el texto se mueva desde la izquierda
@@ -154,64 +85,143 @@ body {
     opacity: 0;
     transform: scale(2); } }
 
-.btn:link,
-.btn:visited {
+/* Todo lo que se incluye en el body se hereda por el resto de elementos */
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /*font-size: 16px;*/
+  line-height: 1.7;
+  color: #777;
+  padding: 3rem;
+  /* El padding no se hereda */ }
+
+.heading-primary {
+  color: #fff;
   text-transform: uppercase;
-  text-decoration: none;
-  padding: 1.5rem 4rem;
-  /* Por defecto es inline, por lo que ocupa espacio de otros elementos
-        inline-block hace que tenga su propio espacio en la pagina*/
-  display: inline-block;
-  border-radius: 10rem;
-  /* Habilita todas las propiedades de animación (transform, etc) y les dice cuanto deben durar 
-        Esto hace que el transform del hover y el active duren lo que se indica aquí*/
-  transition: all .2s;
-  position: relative;
-  font-size: 1.6rem; }
+  /* Arregla un bug en las animaciones que hace que se muevan un poco hacia arriba */
+  backface-visibility: hidden;
+  margin-bottom: 6rem; }
+  .heading-primary--main {
+    /* Al ser un span, es un elemento 'inline'. Lo ponemos 'block' 
+        para que ocupe todo el ancho, y se comporte como un bloque */
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /* La animación irá más lenta al final */
+    animation-timing-function: ease-out; }
+  .heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.75rem;
+    animation: moveInRight 1s ease-out; }
 
-.btn:hover {
-  transform: translateY(-3px);
-  /* La sombra va 10px hacia abajo, tiene 20px de blur (nublado)*/
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+.btn {
+  /* Cuando hacemos click */
+  /* Permite crear un elemento después del elemento actual,
+       pero se trata como si fuera un hijo.
+       Creamos un elemento que sea igual que el botón actual,
+       pero lo ponemos detrás */ }
+  .btn:link, .btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    /* Por defecto es inline, por lo que ocupa espacio de otros elementos
+            inline-block hace que tenga su propio espacio en la pagina*/
+    display: inline-block;
+    border-radius: 10rem;
+    /* Habilita todas las propiedades de animación (transform, etc) y les dice cuanto deben durar 
+            Esto hace que el transform del hover y el active duren lo que se indica aquí*/
+    transition: all .2s;
+    position: relative;
+    font-size: 1.6rem; }
+  .btn:hover {
+    transform: translateY(-3px);
+    /* La sombra va 10px hacia abajo, tiene 20px de blur (nublado)*/
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    /* Cuando hagamos hover sobre el botón, queremos que se "estilice"
+       el elemento 'after'*/ }
+    .btn:hover::after {
+      /* Lo hacemos más grande y lo hacemos invisible */
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0; }
+  .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+  .btn--white {
+    background-color: #fff;
+    color: #777; }
+    .btn--white::after {
+      background-color: #fff; }
+  .btn::after {
+    border-radius: 10rem;
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    /* Habilitamos las transiciones para este elemento */
+    transition: all .4s; }
+  .btn--animated {
+    animation: moveInBottom .5s ease-out;
+    animation-delay: .75s;
+    /* Indica que los estilos en el 0% de la animación se deben aplicar antes de aplicar el delay */
+    animation-fill-mode: backwards; }
 
-/* Cuando hacemos click */
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+/*
+Creamos nuestro propio grid con filas y columnas utilizando floats
+*/
+.row {
+  max-width: 114rem;
+  background-color: #eee;
+  margin: 0 auto; }
+  .row:not(:last-child) {
+    margin-bottom: 8rem; }
+  .row::after {
+    content: "";
+    display: table;
+    clear: both; }
+  .row .col-1-of-2 {
+    width: calc((100% - 6rem) / 2);
+    background-color: orangered;
+    float: left; }
+    .row .col-1-of-2:not(:last-child) {
+      margin-right: 6rem; }
 
-.btn--white {
-  background-color: #fff;
-  color: #777; }
-
-/* Permite crear un elemento después del elemento actual,
-     pero se trata como si fuera un hijo.
-     Creamos un elemento que sea igual que el botón actual,
-     pero lo ponemos detrás */
-.btn::after {
-  border-radius: 10rem;
-  content: "";
-  display: inline-block;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  /* Habilitamos las transiciones para este elemento */
-  transition: all .4s; }
-
-.btn--white::after {
-  background-color: #fff; }
-
-/* Cuando hagamos hover sobre el botón, queremos que se "estilice"
-     el elemento 'after'*/
-.btn:hover::after {
-  /* Lo hacemos más grande y lo hacemos invisible */
-  transform: scaleX(1.4) scaleY(1.6);
-  opacity: 0; }
-
-.btn--animated {
-  animation: moveInBottom .5s ease-out;
-  animation-delay: .75s;
-  /* Indica que los estilos en el 0% de la animación se deben aplicar antes de aplicar el delay */
-  animation-fill-mode: backwards; }
+.header {
+  height: 95vh;
+  /* 95% del view-port */
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url(../img/hero.jpg);
+  background-size: cover;
+  /* Cubre todo el elemento en el que se encuentra */
+  background-position: top;
+  /* No se recortará la imagen por la parte superior al redimensionar */
+  /* Recorta la imagen, crea un polígono donde todo lo que esté fuera no se verá */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  position: relative; }
+  .header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+    animation: moveInDeep 1s;
+    animation-delay: 0.8s;
+    animation-fill-mode: backwards; }
+  .header__logo-box--anim {
+    animation: moveInDeepAfter 1.5s;
+    animation-delay: 0.8s;
+    animation-fill-mode: backwards; }
+  .header__logo {
+    height: 3.5rem; }
+  .header__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    /* Se mueve -50% del tamaño del elemento, tanto en altura como en anchura */
+    transform: translate(-50%, -50%);
+    text-align: center; }

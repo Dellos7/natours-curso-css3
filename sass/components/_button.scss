@@ -1,0 +1,71 @@
+.btn {
+    &:link,
+    &:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 1.5rem 4rem;
+        /* Por defecto es inline, por lo que ocupa espacio de otros elementos
+            inline-block hace que tenga su propio espacio en la pagina*/
+        display: inline-block;
+        border-radius: 10rem;
+        /* Habilita todas las propiedades de animación (transform, etc) y les dice cuanto deben durar 
+            Esto hace que el transform del hover y el active duren lo que se indica aquí*/
+        transition: all .2s;
+        position: relative;
+        font-size: 1.6rem;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+        /* La sombra va 10px hacia abajo, tiene 20px de blur (nublado)*/
+        box-shadow: 0 1rem 2rem rgba($color-black, .2);
+
+        /* Cuando hagamos hover sobre el botón, queremos que se "estilice"
+       el elemento 'after'*/
+        &::after {
+            /* Lo hacemos más grande y lo hacemos invisible */
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+    }
+  
+    /* Cuando hacemos click */
+    &:active {
+      transform: translateY(-1px);
+      box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+    }
+  
+    &--white {
+        background-color: $color-white;
+        color: $color-gray-dark;
+        
+        &::after {
+            background-color: $color-white;
+          }
+    }
+  
+    /* Permite crear un elemento después del elemento actual,
+       pero se trata como si fuera un hijo.
+       Creamos un elemento que sea igual que el botón actual,
+       pero lo ponemos detrás */
+    &::after {
+        border-radius: 10rem;
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        /* Habilitamos las transiciones para este elemento */
+        transition: all .4s;
+    }
+  
+    &--animated {
+      animation: moveInBottom .5s ease-out;
+      animation-delay: .75s;
+      /* Indica que los estilos en el 0% de la animación se deben aplicar antes de aplicar el delay */
+      animation-fill-mode: backwards;
+    }
+}
