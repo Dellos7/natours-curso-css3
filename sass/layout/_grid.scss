@@ -5,8 +5,8 @@ Creamos nuestro propio grid con filas y columnas utilizando floats
     //max-width: 1140px;
     //Se suele utilizar como estándar para una fila 1140px, pero hay que convertirlos en rem
     max-width: $grid-width;
-    background-color: #eee;
-    //Funciona con elementos tipo bloque dentro de elementos tipo bloque (display: block)
+    //El margin 0 auto para centrar en horizontal
+    //funciona con elementos tipo bloque dentro de elementos tipo bloque (display: block)
     margin: 0 auto;
 
     //Poner el margen abajo en todas las filas menos la última
@@ -14,12 +14,11 @@ Creamos nuestro propio grid con filas y columnas utilizando floats
         margin-bottom: $gutter-vertical;
     }
 
+    //Necesitamos el clearfix ya que vamos a utilizar floats!
     @include clearfix;
 
-    .col-1-of-2 {
-        //El tamaño total del bloque donde se encuentra menos el margen entre columnas dividido entre 2
-        width: calc((100% - #{$gutter-horizontal}) / 2);
-        background-color: orangered;
+    //Selecciona todos los elementos cuya clase empieza por "col-"
+    [class^="col-"] {
         float: left;
 
         //Aplicamos el margen a la derecha a todas menos a la última
@@ -27,4 +26,34 @@ Creamos nuestro propio grid con filas y columnas utilizando floats
             margin-right: $gutter-horizontal;
         }
     }
+
+    .col-1-of-2 {
+        //El tamaño total del bloque donde se encuentra menos el margen entre columnas dividido entre 2
+        width: calc((100% - #{$gutter-horizontal}) / 2);
+    }
+
+    .col-1-of-3 {
+        width: calc((100% - 2* #{$gutter-horizontal}) / 3);
+    }
+
+    .col-2-of-3 {
+        //2 veces el tamaño de 1-of-3 + el hueco
+        width: calc( 2* ((100% - 2* #{$gutter-horizontal}) / 3) + #{$gutter-horizontal} );
+    }
+
+    .col-1-of-4 {
+        width: calc((100% - 3* #{$gutter-horizontal}) / 4);
+    }
+
+    .col-2-of-4 {
+        //2 veces el tamaño de 1-of-4
+        width: calc( 2* ((100% - 3* #{$gutter-horizontal}) / 4) + #{$gutter-horizontal} );
+    }
+
+    .col-3-of-4 {
+        //3 veces el tamaño de 1-of-4
+        width: calc( 3* ((100% - 3* #{$gutter-horizontal}) / 4) + 2* #{$gutter-horizontal} );
+    }
+
+
 }
