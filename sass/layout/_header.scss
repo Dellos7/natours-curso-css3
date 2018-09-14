@@ -3,6 +3,7 @@
     @include background-image-gradient( '../img/hero.jpg' );
     background-position: top; /* No se recortará la imagen por la parte superior al redimensionar */
     /* Recorta la imagen, crea un polígono donde todo lo que esté fuera no se verá */
+    -webkit-clip-path: polygon( 0 0, 100% 0, 100% 75vh, 0 100% );
     clip-path: polygon( 0 0, 100% 0, 100% 75vh, 0 100% );
     position: relative;
 

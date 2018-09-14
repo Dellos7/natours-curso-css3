@@ -43,6 +43,15 @@
             background-color: $color-white;
           }
     }
+
+    &--green {
+        background-color: $color-primary;
+        color: $color-white;
+        
+        &::after {
+            background-color: $color-primary;
+          }
+    }
   
     /* Permite crear un elemento después del elemento actual,
        pero se trata como si fuera un hijo.
