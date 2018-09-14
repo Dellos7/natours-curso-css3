@@ -1,11 +1,6 @@
 .header {
     height: 95vh; /* 95% del view-port */
-    background-image: linear-gradient(
-        to right bottom, 
-        rgba($color-primary-light, 0.8), 
-        rgba($color-primary-dark, 0.8)), 
-    url( ../img/hero.jpg );
-    background-size: cover; /* Cubre todo el elemento en el que se encuentra */
+    @include background-image-gradient( '../img/hero.jpg' );
     background-position: top; /* No se recortará la imagen por la parte superior al redimensionar */
     /* Recorta la imagen, crea un polígono donde todo lo que esté fuera no se verá */
     clip-path: polygon( 0 0, 100% 0, 100% 75vh, 0 100% );

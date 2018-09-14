@@ -5,3 +5,12 @@
         clear: both;
     }
 }
+
+@mixin background-image-gradient( $imageUrl ) {
+    background-image: linear-gradient(
+        to right bottom, 
+        rgba($color-primary-light, 0.8), 
+        rgba($color-primary-dark, 0.8)), 
+    url( $imageUrl );
+    background-size: cover; /* Cubre todo el elemento en el que se encuentra */
+}
