@@ -29,3 +29,32 @@
     //background-color: $color-gray-light-1;
     position: relative;
 }
+
+.section-booking {
+    padding: 15rem 0;
+    background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+}
+
+.book {
+    //Al linear-gradient le decimos el ángulo en el que tiene que ir (podemos especificar ángulos o direcciones)
+    //Después le indicamos los colores que queremos que tenga en distintos puntos del gradiente
+    //En el 0% blanco, con un poco de transparencia
+    //Lo mismo en el 50%, por lo que del 0% al 50% será el mismo color
+    //En el 50% también es donde le decimos transparente, por lo que justo después del blanco, comenzará a ser transparente
+    background-image: 
+        linear-gradient(
+            105deg,
+            rgba($color-white, .85) 0%,
+            rgba($color-white, .85) 50%, 
+            transparent 50%
+        ), 
+        url(../img/nat-10.jpg);
+    background-size: cover;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .2);
+
+    &__form {
+        width: 50%;
+        padding: 6rem;
+    }
+}
