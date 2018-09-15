@@ -1,0 +1,109 @@
+.form {
+
+    &__group:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        //Los inputs no heredan fuente
+        font-family: inherit;
+        color: inherit;
+        padding: 1.5rem 2rem;
+        border-radius: 2px;
+        background-color: rgba($color-white, .5);
+        //Le quitamos el borde que lleva por defecto
+        border: none;
+        //Ponemos el mismo borde que pondremos en el focus en el estado inicial,
+        //ya que si no hace el efecto de que el elemento de abajo se mueve un poco debido a que aumenta el tamaño
+        border-bottom: 3px solid transparent;
+        width: 90%;
+        display: block;
+        transition: all .3s;
+
+        &:focus {
+            //Le quitamos el outline que lleva por defecto al hacer focus
+            outline: none;
+            box-shadow: 0 1rem 2rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+
+            //Estilizar cuando el elemento en el que estamos haciendo focus es inválido
+            &:invalid {
+                border-bottom: 3px solid $color-secondary-dark;
+            }
+
+        }
+
+        //Con este pseudo-elemento se puede estilizar el placeholder
+        &::-webkit-input-placeholder {
+            color: $color-gray-dark-2;
+        }
+    }
+
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: 2rem;
+        margin-top: .7rem;
+        display: block;
+        transition: all .3s;
+    }
+
+    //sibling selector
+    //Cuando el placeholder se muestra (no hemos escrito nada en el input), seleccionamos el elemento form__label,
+    //este tiene que estar al mismo nivel del input (dentro del mismo padre) y además tiene que aparecer después en el html
+    &__input:placeholder-shown ~ &__label {
+        //Ocultamos el label y le damos opacidad 0, de esta forma podemos usar animaciones
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-4rem);
+    }
+
+    &__radio-group {
+        width: 49%;
+        display: inline-block;
+    }
+
+    &__radio-input {
+        display: none;
+    }
+
+    &__radio-label {
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;
+        padding-left: 4.5rem;
+    }
+
+    &__radio-button {
+        height: 3rem;
+        width: 3rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        top: -.4rem;
+        left: 0;
+
+        &::after {
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+    }
+
+    //Cuando se marque el radio-input entonces seleccionamos el pseudo-elemento after del radio-button del sibling radio-label
+    &__radio-input:checked ~ &__radio-label &__radio-button::after {
+        opacity: 1;
+    }
+
+}
