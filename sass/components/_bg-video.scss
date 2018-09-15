@@ -1,0 +1,19 @@
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1; //Esto tiene que estar detrás de todos los elementos
+    opacity: .15;
+    //Utilizando en el video 'object-fit: cover' conseguimos que el vídeo ocupe todo su elemento padre
+    //Pero se sale por la izq. y derecha, por lo que tenemos que utilizar el overflow hidden
+    overflow: hidden;
+
+    &__content {
+        height: 100%;
+        width: 100%;
+        //Rellenará de forma completa el tamaño de su elemento padre manteniendo la relación de aspecto
+        object-fit: cover;
+    }
+}
