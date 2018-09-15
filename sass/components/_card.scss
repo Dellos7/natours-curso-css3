@@ -8,12 +8,13 @@
     height: 52rem;
 
     &__side {
-        height: 52rem;
+        //Mismo tamaño la cara que el padre
+        height: 100%;
+        width: 100%;
         transition: all .8s ease;
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
         //Que la parte trasera del elemento sea invisible, nos sirve para cuando rotamos
         -webkit-backface-visibility: hidden;
         -moz-backface-visibility: hidden;
@@ -29,7 +30,8 @@
         }
 
         &--back {
-            //Al principio, la parte 'trasera' de la figura ya está rotada
+            //Al principio, la parte 'trasera' de la figura ya está rotada,
+            //para que al rotar al hacer hover haga bien el efecto
             transform: rotateY(180deg);
 
             &-1 {
@@ -54,7 +56,7 @@
     }
 
     &:hover &__side--back {
-        //Rotamos el card__side--back 0g grados al hacer hover sobre el card
+        //Rotamos el card__side--back 0 grados al hacer hover sobre el card
         transform: rotateY(0);
     }
 
