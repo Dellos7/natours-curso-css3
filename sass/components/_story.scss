@@ -1,0 +1,68 @@
+.story {
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white, .6);
+    border-radius: .3rem;
+    padding: 6rem;
+    padding-left: 9rem;
+    font-size: $default-font-size;
+    transform: skewX(-12deg);
+
+    &__shape {
+        width: 15rem;
+        height: 15rem;
+        float: left;
+        //Definimos un círculo como la "figura exterior" de la imagen, para que el texto pueda acoplarse
+        //Para que funcione tiene que tener el float, width y height definidos
+        //El circle se define con el primer parámetro el radio y se le dice el centro del círculo
+        -webkit-shape-outside: circle(50% at 50% 50%);
+        shape-outside: circle(50% at 50% 50%);
+        -webkit-clip-path: circle(50% at 50% 50%);
+        //Recortamos la figura para que sea un círculo
+        clip-path: circle(50% at 50% 50%);
+        //Al ser un elemento con float, es mejor 'darle margen a la derecha' haciendo un translate
+        transform: translateX(-3rem) skewX(12deg);
+        position: relative;
+    }
+
+    &__img {
+        //Hay que darle tamaño para que se ajuste a la figura
+        height: 100%;
+        //Estado inicial antes de hacer la animación con hover
+        transform: translateX(-4rem) scale(1.4);
+        transition: all .5s;
+    }
+
+    &__text {
+        transform: skewX(12deg);
+    }
+
+    &__caption {
+        color: $color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        //Centrar el elemento
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        //Estado inicial de la animación (texto invisible y en lugar de centrarlo del todo, un poco hacia abajo)
+        transform: translate(-50%, 20%);
+        opacity: 0;
+        transition: all .5s;
+        backface-visibility: hidden;//fix bug
+    }
+
+    //Cuando hagamos hover sobre 'story', estilizamos el elemento 'story__caption'
+    &:hover &__caption {
+        opacity: 1;
+        transform: translate(-50%,-50%);
+    }
+
+    &:hover &__img {
+        transform: translateX(-4rem) scale(1);
+        filter: blur(3px) brightness(80%);
+    }
+
+}
